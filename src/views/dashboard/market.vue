@@ -1,12 +1,12 @@
 <template>
     <v-ons-page>
         <p style="text-align: center">
-        Change the settings.
+        保险商城
         </p>
     </v-ons-page>
 </template>
 <script>
     export default {
-        name: 'settings'
+        name: 'market'
     }
 </script>

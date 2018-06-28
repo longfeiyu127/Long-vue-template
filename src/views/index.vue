@@ -9,6 +9,8 @@
             <div class="center">{{ title }}</div>
         </v-ons-toolbar>
 
+
+
         <v-ons-tabbar swipeable position="auto"
         :tabs="tabs"
         :visible="true"
@@ -22,7 +24,7 @@
 
 
 import Home from './dashboard/home'
-import News from './dashboard/news'
+import News from './dashboard/mine'
 export default {
   data() {
     return {

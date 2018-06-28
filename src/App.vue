@@ -3,18 +3,14 @@
         <transition name="fade" mode="out-in">
             <router-view></router-view>
         </transition>
-        <!-- <Ads></Ads> -->
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 
-import Ads from 'Views/common/ads'
-
 export default {
     components: {
-        Ads
     },
     methods: {
         ...mapActions(['getUserInfo']),
@@ -24,7 +20,6 @@ export default {
                 this.$store.commit('SET_TO_LOGIN_PATH', this.$route.path)
                 this.$store.commit('SET_TO_LOGIN', true)
                 return
-                
             })
             GLOBAL.vbus.$on('request_error', (resData) => {
             })
@@ -35,7 +30,6 @@ export default {
         },
         init() {
             this.getUserInfo()
-            
         }
     },
     created() {

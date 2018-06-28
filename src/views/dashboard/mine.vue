@@ -7,7 +7,7 @@
 </template>
 <script>
     export default {
-        name: "news"
+        name: "mine"
         // props: [myProp]
     }
 </script>
