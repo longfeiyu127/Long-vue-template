@@ -244,7 +244,7 @@ export default axiosInstance
 // main.js
 import Vue from 'vue'
 
-GLOBAL.vbus = new Vue()
+GLOBAL.$center = new Vue()
 
 // import 'Components'// 全局组件注册
 import 'Directives' // 指令
@@ -341,7 +341,7 @@ export function responseSuccessFunc (responseObj) {
             return;
         default:
             // 业务中还会有一些特殊 code 逻辑，我们可以在这里做统一处理，也可以下方它们到业务层
-            !responseObj.config.noShowDefaultError && GLOBAL.vbus.$emit('global.$dialog.show', resData.msg);
+            !responseObj.config.noShowDefaultError && GLOBAL.$center.$emit('global.$dialog.show', resData.msg);
             return Promise.reject(resData);
     }
 }
@@ -396,7 +396,7 @@ export default {
     },
     methods: {
         bindEvents() {
-            GLOBAL.vbus.$on('global.dialog.show', (msg) => {
+            GLOBAL.$center.$on('global.dialog.show', (msg) => {
                 if(msg) return
                 // 我们会在这里注册全局需要操控试图层的事件，方便在非业务代码中通过发布订阅调用
                 this.$dialog.popup({
@@ -410,9 +410,9 @@ export default {
 ```
 
 2. `GLOBAL` 是我们挂载 `window` 上的`全局对象`，我们把需要挂载的东西都放在 `window.GLOBAL` 里，减少命名空间冲突的可能。
-3. `vbus` 其实就是我们开始 `new Vue()` 挂载上去的
+3. `$center` 其实就是我们开始 `new Vue()` 挂载上去的
 ```
-GLOBAL.vbus = new Vue()
+GLOBAL.$center = new Vue()
 ```
 4. 我们在这里 `Promise.reject` 出去，我们就可以在 `error` 回调里面只处理我们的业务逻辑，而其他如`断网`、`超时`、`服务器出错`等均通过拦截器进行统一处理。
 
@@ -797,14 +797,14 @@ getOrderInfo({
 > 答案是否定的，就算你的项目达到 10 万行代码，那也并不意味着你必须使用 Vuex，应该由**业务场景**决定。
 
 #### 业务场景
-1. 第一类项目：**业务/视图复杂度不高，不建议使用 Vuex，会带来开发与维护的成本**，使用简单的 `vbus` 做好**命名空间**，来解耦即可。
+1. 第一类项目：**业务/视图复杂度不高，不建议使用 Vuex，会带来开发与维护的成本**，使用简单的 `$center` 做好**命名空间**，来解耦即可。
 ```js
-let vbus = new Vue()
-vbus.$on('print.hello', () => {
+let $center = new Vue()
+$center.$on('print.hello', () => {
     console.log('hello')
 })
 
-vbus.$emit('print.hello')
+$center.$emit('print.hello')
 ```
 2. 第二类项目：类似`多人协作项目管理`，`有道云笔记`，`网易云音乐`，`微信网页版/桌面版`等**应用**，功能集中，空间利用率高，实时交互的项目，无疑 `Vuex 是较好的选择`。这类应用中我们可以直接`抽离业务领域模型`：
 

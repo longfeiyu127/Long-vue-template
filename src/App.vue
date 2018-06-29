@@ -15,17 +15,17 @@ export default {
     methods: {
         ...mapActions(['getUserInfo']),
         bindEvent() {
-            GLOBAL.vbus.$on('ajax_handle_error', (resData) => {
+            GLOBAL.$center.$on('ajax_handle_error', (resData) => {
                 if(!!resData.config.noShowDefaultError) return
                 this.$store.commit('SET_TO_LOGIN_PATH', this.$route.path)
                 this.$store.commit('SET_TO_LOGIN', true)
                 return
             })
-            GLOBAL.vbus.$on('request_error', (resData) => {
+            GLOBAL.$center.$on('request_error', (resData) => {
             })
-            GLOBAL.vbus.$on('response_error', (resData) => {
+            GLOBAL.$center.$on('response_error', (resData) => {
             })
-            GLOBAL.vbus.$on('scrollToTop', (resData) => {
+            GLOBAL.$center.$on('scrollToTop', (resData) => {
             })
         },
         init() {
